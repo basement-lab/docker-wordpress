@@ -1,0 +1,39 @@
+version: "3"
+
+services:
+  wordpress:
+    container_name: basement-lab-wordpress
+    image: wordpress:latest
+    volumes:
+      - ./src:/var/www/html
+    ports:
+      - "8080:80"
+    links:
+      - db:mysql
+    environment:
+      # - WORDPRESS_DB_HOST
+      - WORDPRESS_DB_NAME=${WORDPRESS_DB_NAME:-wordpress}
+      - WORDPRESS_DB_USER=${WORDPRESS_DB_USER:-lab}
+      - WORDPRESS_DB_PASSWORD=${WORDPRESS_DB_PASSWORD:-basementlab}
+      # - WORDPRESS_TABLE_PREFIX
+      # - WORDPRESS_TABLE_PREFIX=${WORDPRESS_TABLE_PREFIX:-wp_}
+  db:
+    container_name: basement-lab-maria
+    image: mariadb
+    ports:
+      - "8081:3306"
+    environment:
+      - MYSQL_DATABASE=${MYSQL_DATABASE:-wordpress}
+      - MYSQL_USER=${MYSQL_USER:-lab}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD:-basementlab}
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD:-basementlab}
+    volumes:
+      - basement_lab_maria:/var/lib/mysql
+
+networks:
+  default:
+    external:
+      name: basement_lab
+
+volumes:
+  basement_lab_maria:
