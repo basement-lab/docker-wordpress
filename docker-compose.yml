@@ -11,12 +11,9 @@ services:
     links:
       - db:mysql
     environment:
-      # - WORDPRESS_DB_HOST
       - WORDPRESS_DB_NAME=${WORDPRESS_DB_NAME:-wordpress}
       - WORDPRESS_DB_USER=${WORDPRESS_DB_USER:-lab}
       - WORDPRESS_DB_PASSWORD=${WORDPRESS_DB_PASSWORD:-basementlab}
-      # - WORDPRESS_TABLE_PREFIX
-      # - WORDPRESS_TABLE_PREFIX=${WORDPRESS_TABLE_PREFIX:-wp_}
   db:
     container_name: basement-lab-maria
     image: mariadb
