@@ -1,3 +1,4 @@
+If it's the first time running this, run `$ make init`, then:
 
 Start the stack up: `$ make`
 
